@@ -23,7 +23,8 @@ override CFLAGS += -c -fPIC
 MARCH ?=rv64imac
 MABI ?=lp64
 
-CFLAGS += -march=$(MARCH) -mabi=$(MABI)
+override CFLAGS += -march=$(MARCH) -mabi=$(MABI)
+override LDFLAGS += -march=$(MARCH) -mabi=$(MABI)
 
 DEBUG       ?= 0
 ifeq ($(DEBUG), 1)

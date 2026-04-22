@@ -28,21 +28,21 @@ all: build install
 build-libteec:
 	@echo "Building libteec.so"
 	@$(MAKE) --directory=libteec --no-print-directory --no-builtin-variables \
-			CFG_TEE_BENCHMARK=$(CFG_TEE_BENCHMARK) CFG_TEE_CLIENT_LOG_LEVEL=$(CFG_TEE_CLIENT_LOG_LEVEL)
+			CFG_TEE_BENCHMARK=$(CFG_TEE_BENCHMARK) CFG_TEE_CLIENT_LOG_LEVEL=$(CFG_TEE_CLIENT_LOG_LEVEL) MARCH=$(MARCH) MABI=$(MABI)
 
 build-tee-supplicant: build-libteec
 	@echo "Building tee-supplicant"
-	$(MAKE) --directory=tee-supplicant  --no-print-directory --no-builtin-variables CFG_TEE_SUPP_LOG_LEVEL=$(CFG_TEE_SUPP_LOG_LEVEL)
+	$(MAKE) --directory=tee-supplicant  --no-print-directory --no-builtin-variables CFG_TEE_SUPP_LOG_LEVEL=$(CFG_TEE_SUPP_LOG_LEVEL) MARCH=$(MARCH) MABI=$(MABI)
 
 build: build-libteec build-tee-supplicant build-libckteec build-libseteec
 
 build-libckteec: build-libteec
 	@echo "Building libckteec.so"
-	@$(MAKE) --directory=libckteec --no-print-directory --no-builtin-variables
+	@$(MAKE) --directory=libckteec --no-print-directory --no-builtin-variables MARCH=$(MARCH) MABI=$(MABI)
 
 build-libseteec: build-libteec
 	@echo "Building libseteec.so"
-	@$(MAKE) --directory=libseteec --no-print-directory --no-builtin-variables
+	@$(MAKE) --directory=libseteec --no-print-directory --no-builtin-variables MARCH=$(MARCH) MABI=$(MABI)
 
 install: copy_export
 
